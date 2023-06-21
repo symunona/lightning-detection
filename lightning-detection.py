@@ -1,6 +1,9 @@
 # This is based on https://lukse.lt/uzrasai/2015-05-lightning-strikes-and-python/
 # Made py3 compatible by symunona
-# For a 4K video, treshold 100000 seems good.
+# For a 4K video, threshold 100000 seems good.
+
+# Dependencies:
+# pip install -r requirements.txt
 
 # First param, video src
 # Second param, diff threshold.
@@ -14,7 +17,7 @@ from progress.bar import Bar
 import time
 
 SCALE = 0.5
-NOISE_CUTOFF = 5
+NOISE_CUTOFF = 6
 BLUR_SIZE = 3
 
 start = time.time()
@@ -22,7 +25,9 @@ start = time.time()
 def count_diff(img1, img2):
     small1 = cv2.resize(img1, (0,0), fx=SCALE, fy=SCALE)
     small2 = cv2.resize(img2, (0,0), fx=SCALE, fy=SCALE)
-    #cv2.imshow('frame', small2)
+
+    # For debugging, uncomment this!
+    # cv2.imshow('frame', small2)
     #cv2.waitKey(1)
     diff = cv2.absdiff(small1, small2)
     diff = cv2.cvtColor(diff, cv2.COLOR_RGB2GRAY)
